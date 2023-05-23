@@ -7,14 +7,13 @@ import { useGetMoviesQuery } from '../../services/TMDB';
 export const Movies = () => {
   const { data } = useGetMoviesQuery();
 
-  // eslint-disable-next-line no-console
-  console.log(data);
+  console.log(data)
 
   return (
     <div>
       Movies
     </div>
-  );
+  )
 };
 
 export default Movies;
