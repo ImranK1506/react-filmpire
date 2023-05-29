@@ -5,8 +5,11 @@ import { Route, Switch } from 'react-router-dom';
 import useStyles from './styles';
 
 import { Actors, MovieInformation, Movies, Profile, NavBar } from './index';
+import { useSelector } from 'react-redux';
+import { userSelector } from '../features/auth';
 
 export const App = () => {
+  const { user } = useSelector(userSelector);
   const classes = useStyles();
 
   return (
@@ -25,7 +28,7 @@ export const App = () => {
           <Route exact path="/">
             <Movies />
           </Route>
-          <Route exact path="/profiles/:id">
+          <Route exact path={`/profile/${user.id}`}>
             <Profile />
           </Route>
         </Switch>
