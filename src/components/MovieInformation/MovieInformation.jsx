@@ -24,19 +24,24 @@ import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import genreIcons from '../../assets/genres';
+import { MovieList } from '..'
 import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
 
 import useStyles from './styles';
-import { useGetMovieQuery } from '../../services/TMDB';
+import { useGetMovieQuery, useGetRecommendationsQuery } from '../../services/TMDB';
 
 export const MovieInformation = () => {
   const { id } = useParams();
   const { data, isFetching, error } = useGetMovieQuery(id);
+  const { data: recommendations, isFetching: isRecommendationsFetching } = useGetRecommendationsQuery({ list: '/recommendations', movie_id: id });
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const isMovieFavorited = true;
   const isMovieWatchlisted = true;
+
+  console.log('recommendations')
+  console.log(recommendations)
 
   const addToFavorites = () => {
 
@@ -212,6 +217,17 @@ export const MovieInformation = () => {
           </div>
         </Grid>
       </Grid>
+    {/* Recommendations */}
+      <Box marginTop="5rem" width="100%">
+        <Typography variant="h3" align="center" gutterBottom>
+          You might also like
+        </Typography>
+      {/* Loop through recommended movies */}
+        {recommendations
+          ? <MovieList movies={recommendations} numberOfMovies={12}/>
+          : <Box>Nothing Found</Box>
+        }
+      </Box>
     </Grid>
   )
 };
