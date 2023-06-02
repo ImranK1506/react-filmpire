@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Modal,
   Typography,
@@ -36,12 +36,10 @@ export const MovieInformation = () => {
   const { data: recommendations, isFetching: isRecommendationsFetching } = useGetRecommendationsQuery({ list: '/recommendations', movie_id: id });
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
 
   const isMovieFavorited = true;
   const isMovieWatchlisted = true;
-
-  console.log('recommendations')
-  console.log(recommendations)
 
   const addToFavorites = () => {
 
@@ -177,7 +175,7 @@ export const MovieInformation = () => {
                 </Button>
                 {/* Trailer */}
                 <Button
-                  onClick={() => {}}
+                  onClick={() => setOpen(true)}
                   href="#"
                   endIcon={<Theaters />}>
                   Trailer
@@ -228,6 +226,25 @@ export const MovieInformation = () => {
           : <Box>Nothing Found</Box>
         }
       </Box>
+    {/* Trailer */}
+      <Modal
+        closeAfterTransition
+        className={classes.modal}
+        open={open}
+        onClose={() => setOpen(false)}
+       >
+        <>
+          {data?.videos?.results?.length > 0 && (
+            <iframe
+              autoPlay
+              className={classes.video}
+              title="Trailer"
+              src={`https://www.youtube.com/embed/${data.videos.results[0].key}`}
+              allow="autoplay"
+            />
+          )}
+        </>
+      </Modal>
     </Grid>
   )
 };
