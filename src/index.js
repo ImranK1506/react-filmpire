@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 // eslint-disable-next-line import/no-named-as-default
 import App from './components/App';
 import store from './app/store';
+import './index.css';
 
 const theme = createTheme({});
 

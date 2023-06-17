@@ -2,10 +2,10 @@ import React from 'react';
 import { CssBaseline } from '@mui/material';
 import { Route, Switch } from 'react-router-dom';
 
+import { useSelector } from 'react-redux';
 import useStyles from './styles';
 
 import { Actors, MovieInformation, Movies, Profile, NavBar } from './index';
-import { useSelector } from 'react-redux';
 import { userSelector } from '../features/auth';
 
 export const App = () => {
@@ -25,7 +25,7 @@ export const App = () => {
           <Route exact path="/actors/:id">
             <Actors />
           </Route>
-          <Route exact path="/">
+          <Route exact path={['/', '/approved']}>
             <Movies />
           </Route>
           <Route exact path={`/profile/${user.id}`}>
